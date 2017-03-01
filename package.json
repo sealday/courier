@@ -1,0 +1,17 @@
+{
+  "name": "courier",
+  "version": "1.0.0",
+  "description": "A simple job queue backed by redis, built for node.js.",
+  "main": "index.js",
+  "author": "sealday <sealday@gmail.com>",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.16.1",
+    "eslint-config-google": "^0.7.1",
+    "mocha": "^3.2.0"
+  }
+}

@@ -1,0 +1,14 @@
+# node 依赖
+node_modules/
+
+# vim 编辑时的交换文件
+.*.swp
+
+# mac finder 备份文件
+.DS_Store
+
+# npm 运行错误的日志文件
+npm-debug.log
+
+# webstorm 项目文件
+.idea/
