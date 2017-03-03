@@ -4,6 +4,7 @@ const EventEmitter = require('events');
 
 const events = new EventEmitter();
 // 在监视的里面，需要监视两个队列，分别是 delayed 队列和 active 队列
+const pubsubClient = client.duplicate();
 
 const client = redis.createClient({
   prefix: 'courier:'
@@ -24,7 +25,12 @@ const promote = () => client.lrange('jobs:delayed', 0, -1, (err, jobs) => {
         multi.lpush('jobs:ready', job.id);
         multi.lpush(`jobs:${job.type}:ready`, job.id);
         events.emit('promotion');
-        multi.exec();
+        multi.exec(() => {
+          pubsubClient.publish(`events:${id}`, JSON.stringify({
+            id: job.id,
+            name: 'delayed -> ready'
+          }));
+        });
       }
     });
   });

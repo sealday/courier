@@ -9,11 +9,18 @@ const client = redis.createClient({
 const events = new EventEmitter();
 
 const blockingClient = client.duplicate();
+const pubsubClient = client.duplicate();
 
 const type = 'email';
 // 这里只是取任务，将任务放在活跃队列中
 const watiFor = (type, fn) => {
   blockingClient.brpoplpush(`jobs:${type}:ready`, `jobs:${type}:active`, 0, (err, id) => {
+
+    pubsubClient.publish(`events:${id}`, JSON.stringify({
+      id: id,
+      name: 'ready -> active'
+    }));
+
     blockingClient.hgetall(`job:${id}`, (err, job) => {
       fn(err, job, err => {
         const multi = blockingClient.multi();
@@ -26,6 +33,10 @@ const watiFor = (type, fn) => {
             if (err) {
               return;
             }
+            pubsubClient.publish(`events:${id}`, JSON.stringify({
+              id: id,
+              name: 'active -> failed'
+            }));
             watiFor(type, fn);
           });
         } else {
@@ -35,6 +46,10 @@ const watiFor = (type, fn) => {
             if (err) {
               return;
             }
+            pubsubClient.publish(`events:${id}`, JSON.stringify({
+              id: id,
+              name: 'active -> done'
+            }));
             watiFor(type, fn);
           });
         }

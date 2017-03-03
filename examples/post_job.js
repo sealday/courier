@@ -5,6 +5,13 @@ const client = redis.createClient({
   prefix: 'courier:'
 });
 
+const pubsubClient = client.duplicate();
+
+pubsubClient.on('message', (channel, message) => {
+  console.log(channel);
+  console.log(message);
+});
+
 const events = new EventEmitter();
 
 const run = type => setTimeout(() => {
@@ -14,6 +21,8 @@ const run = type => setTimeout(() => {
       events.emit('error', err);
     } else {
       events.emit('job ready');
+
+      pubsubClient.subscribe(`events:${id}`);
 
       const multi = client.multi();
       multi.hmset(`job:${id}`, {
@@ -35,7 +44,12 @@ const run = type => setTimeout(() => {
       multi.lpush(`jobs:${type}:ready`, id);
       // 实际上上面这个事务也没有什么必要，id 不会被多个客户端
       // 这个地方就失败了，只有连接出错的时候才会发生
-      multi.exec();
+      multi.exec(() => {
+        pubsubClient.publish(`events:${id}`, JSON.stringify({
+          id: id,
+          name: '-> ready',
+        }));
+      });
     }
   });
   run(type);
