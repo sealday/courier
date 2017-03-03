@@ -63,6 +63,12 @@ assertion-error@^1.0.1:
   version "1.0.2"
   resolved "https://r.cnpmjs.org/assertion-error/download/assertion-error-1.0.2.tgz#13ca515d86206da0bac66e834dd397d87581094c"
 
+async@^2.1.5:
+  version "2.1.5"
+  resolved "https://r.cnpmjs.org/async/download/async-2.1.5.tgz#e587c68580994ac67fc56ff86d3ac56bdbe810bc"
+  dependencies:
+    lodash "^4.14.0"
+
 babel-code-frame@^6.16.0:
   version "6.22.0"
   resolved "https://r.cnpmjs.org/babel-code-frame/download/babel-code-frame-6.22.0.tgz#027620bee567a88c32561574e7fd0801d33118e4"
@@ -207,6 +213,10 @@ doctrine@^1.2.2:
     esutils "^2.0.2"
     isarray "^1.0.0"
 
+double-ended-queue@^2.1.0-0:
+  version "2.1.0-0"
+  resolved "https://r.cnpmjs.org/double-ended-queue/download/double-ended-queue-2.1.0-0.tgz#103d3527fd31528f40188130c841efdd78264e5c"
+
 es5-ext@^0.10.7, es5-ext@^0.10.8, es5-ext@~0.10.11, es5-ext@~0.10.2, es5-ext@~0.10.7:
   version "0.10.12"
   resolved "https://r.cnpmjs.org/es5-ext/download/es5-ext-0.10.12.tgz#aa84641d4db76b62abba5e45fd805ecbab140047"
@@ -271,6 +281,10 @@ escope@^3.6.0:
     es6-weak-map "^2.0.1"
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
+
+eslint-config-google@^0.7.1:
+  version "0.7.1"
+  resolved "https://r.cnpmjs.org/eslint-config-google/download/eslint-config-google-0.7.1.tgz#5598f8498e9e078420f34b80495b8d959f651fb2"
 
 eslint@^3.16.1:
   version "3.16.1"
@@ -614,7 +628,7 @@ lodash.keys@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
 
-lodash@^4.0.0, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://r.cnpmjs.org/lodash/download/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -762,6 +776,22 @@ rechoir@^0.6.2:
   resolved "https://r.cnpmjs.org/rechoir/download/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
   dependencies:
     resolve "^1.1.6"
+
+redis-commands@^1.2.0:
+  version "1.3.1"
+  resolved "https://r.cnpmjs.org/redis-commands/download/redis-commands-1.3.1.tgz#81d826f45fa9c8b2011f4cd7a0fe597d241d442b"
+
+redis-parser@^2.0.0:
+  version "2.4.0"
+  resolved "https://r.cnpmjs.org/redis-parser/download/redis-parser-2.4.0.tgz#018ea743077aae944d0b798b2fd12587320bf3c9"
+
+redis@^2.6.5:
+  version "2.6.5"
+  resolved "https://r.cnpmjs.org/redis/download/redis-2.6.5.tgz#87c1eff4a489f94b70871f3d08b6988f23a95687"
+  dependencies:
+    double-ended-queue "^2.1.0-0"
+    redis-commands "^1.2.0"
+    redis-parser "^2.0.0"
 
 require-uncached@^1.0.2:
   version "1.0.3"
