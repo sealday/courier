@@ -45,7 +45,7 @@ const run = type => setTimeout(() => {
       // 实际上上面这个事务也没有什么必要，id 不会被多个客户端
       // 这个地方就失败了，只有连接出错的时候才会发生
       multi.exec(() => {
-        pubsubClient.publish(`events:${id}`, JSON.stringify({
+        client.publish(`events:${id}`, JSON.stringify({
           id: id,
           name: '-> ready',
         }));

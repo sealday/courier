@@ -9,6 +9,11 @@ const client = redis.createClient({
 const events = new EventEmitter();
 const pubsubClient = client.duplicate();
 
+pubsubClient.on('message', (channel, message) => {
+  console.log(channel);
+  console.log(message);
+});
+
 const run = type => setTimeout(() => {
 // 新增加的任务总是要创建id
   client.incr('id', (err, id) => {
@@ -17,6 +22,8 @@ const run = type => setTimeout(() => {
     } else {
       events.emit('job ready');
       const multi = client.multi();
+
+      pubsubClient.subscribe(`events:${id}`);
 
       let job = new Job(id, type, 'delayed');
       job.delay = 10 * 1000;
@@ -27,7 +34,7 @@ const run = type => setTimeout(() => {
       // 实际上上面这个事务也没有什么必要，id 不会被多个客户端
       // 这个地方就失败了，只有连接出错的时候才会发生
       multi.exec(() => {
-        pubsubClient.publish(`events:${id}`, JSON.stringify({
+        client.publish(`events:${id}`, JSON.stringify({
           id: id,
           name: '-> delayed'
         }));
