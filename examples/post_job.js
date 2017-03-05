@@ -66,18 +66,20 @@
 //  console.log('job ready');
 //});
 
-const courier = require('../');
-courier.post('email', {
-  title: 'Sample Title',
-  from: 'A',
-  to: 'B',
-  content: 'Some contents'
-}).on('-> ready', () => {
-  console.log('工作准备就绪');
-}).on('ready -> active', () => {
-  console.log('工作开始进行');
-}).on('active -> done', () => {
-  console.log('工作完成');
-}).on('active -> failed', () => {
-  console.log('工作失败');
-});
+setInterval(() => {
+  const courier = require('../');
+  courier.post('email', {
+    title: 'Sample Title',
+    from: 'A',
+    to: 'B',
+    content: 'Some contents'
+  }).on('-> ready', () => {
+    console.log('工作准备就绪');
+  }).on('ready -> active', () => {
+    console.log('工作开始进行');
+  }).on('active -> done', () => {
+    console.log('工作完成');
+  }).on('active -> failed', () => {
+    console.log('工作失败');
+  });
+}, Math.random() * 2000);
