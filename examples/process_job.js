@@ -1,12 +1,12 @@
 'use strict';
 const courier = require('../');
 
-courier.process('video', (err, job, done) => {
+courier.process('video', (job, done) => {
   console.log('working video on $%d', job.id);
 
-  let ms = Math.random() * 5000;
+  let ms = Math.random() * 1000;
   setTimeout(() => {
-    if (ms > 2000) {
+    if (ms > 500) {
       done(new Error('too much time'));
     } else {
       done();
@@ -14,12 +14,12 @@ courier.process('video', (err, job, done) => {
   }, ms);
 });
 
-courier.process('email', (err, job, done) => {
+courier.process('email', (job, done) => {
   console.log('working email on $%d', job.id);
 
-  let ms = Math.random() * 2000;
+  let ms = Math.random() * 1000;
   setTimeout(() => {
-    if (ms > 1000) {
+    if (ms > 500) {
       done(new Error('too much time'));
     } else {
       done();
