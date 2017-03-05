@@ -9,14 +9,15 @@ const client = redis.createClient({
 const events = new EventEmitter();
 
 const blockingClient = client.duplicate();
-const pubsubClient = client.duplicate();
 
 const type = 'email';
 // 这里只是取任务，将任务放在活跃队列中
 const watiFor = (type, fn) => {
-  blockingClient.brpoplpush(`jobs:${type}:ready`, `jobs:${type}:active`, 0, (err, id) => {
+  blockingClient.brpoplpush(`jobs:${type}:ready`, `jobs:${type}:active`, 1, (err, id) => {
+    console.log('---');
+    if (!id) return;
 
-    pubsubClient.publish(`events:${id}`, JSON.stringify({
+    client.publish(`events:${id}`, JSON.stringify({
       id: id,
       name: 'ready -> active'
     }));
@@ -33,7 +34,7 @@ const watiFor = (type, fn) => {
             if (err) {
               return;
             }
-            pubsubClient.publish(`events:${id}`, JSON.stringify({
+            client.publish(`events:${id}`, JSON.stringify({
               id: id,
               name: 'active -> failed'
             }));
@@ -46,7 +47,7 @@ const watiFor = (type, fn) => {
             if (err) {
               return;
             }
-            pubsubClient.publish(`events:${id}`, JSON.stringify({
+            client.publish(`events:${id}`, JSON.stringify({
               id: id,
               name: 'active -> done'
             }));
@@ -58,7 +59,7 @@ const watiFor = (type, fn) => {
   });
 };
 
-watiFor('email', (err, job, done) => {
+watiFor('video', (err, job, done) => {
   console.log('working video on $%d', job.id);
 
   let ms = Math.random() * 5000;
@@ -71,7 +72,7 @@ watiFor('email', (err, job, done) => {
   }, ms);
 });
 
-watiFor('video', (err, job, done) => {
+watiFor('email', (err, job, done) => {
   console.log('working email on $%d', job.id);
 
   let ms = Math.random() * 5000;
