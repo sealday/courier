@@ -1,5 +1,5 @@
 'use strict';
-const courier = require('../');
+const courier = require('../').createCourier({ prefix: 'c:' });
 
 /*
  * 模拟不定期发布工作

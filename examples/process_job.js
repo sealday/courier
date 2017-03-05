@@ -1,5 +1,5 @@
 'use strict';
-const courier = require('../');
+const courier = require('../').createCourier({ prefix: 'c:' });
 
 courier.process('video', (job, done) => {
   console.log('working video on $%d', job.id);
