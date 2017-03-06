@@ -3,6 +3,26 @@
 - 测试正常发布分别运行（顺序无关），post_job.js、process_job.js
 - 测试延迟发布分别运行（顺序无关），delay_job.js、process_job.js
 
+## 代码示例
+```js
+const courier = require('courier').createCourier({ prefix: 'c:' });
+courier.post('email', {
+  title: 'Sample Title',
+  from: 'A',
+  to: 'B',
+  content: 'Some contents'
+}).on('-> ready', (job) => {
+  console.log(`#${job.id} 工作准备就绪`);
+}).on('ready -> active', (job) => {
+  console.log(`#${job.id} 工作开始进行`);
+}).on('active -> done', (job) => {
+  console.log(`#${job.id} 工作完成`);
+}).on('active -> failed', (job, message) => {
+  console.log(`#${job.id} 工作失败`);
+  console.log(`失败信息：${message}`);
+});
+```
+
 ## 实现功能 
 - [x] 发布工作者能跟踪工作状态，及时处理工作
 - [x] 及时处理队列中的消息
