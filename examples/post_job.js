@@ -16,7 +16,8 @@ setInterval(() => {
     console.log(`#${job.id} 工作开始进行`);
   }).on('active -> done', (job) => {
     console.log(`#${job.id} 工作完成`);
-  }).on('active -> failed', (job) => {
+  }).on('active -> failed', (job, message) => {
     console.log(`#${job.id} 工作失败`);
+    console.log(`失败信息：${message}`);
   });
 }, Math.random() * 5000);
