@@ -26,3 +26,7 @@ courier.process('email', (job, done) => {
     }
   }, ms);
 });
+
+setTimeout(() => {
+  // courier.quit();
+}, 10000);
