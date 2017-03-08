@@ -89,11 +89,13 @@ courier.post('email', {
 - data: 附带的数据（可为空）
 
 事件包括：
-- -> ready 进入就绪队列
-- -> delayed 进入延迟工作队列
-- ready -> active 进入当前工作队列
-- active -> done 工作完成
-- active -> failed 工作失败
+- ` -> ready` 进入就绪队列
+- ` -> delayed` 进入延迟工作队列
+- `ready -> active` 进入当前工作队列
+- `active -> done` 工作完成
+- `active -> failed` 工作失败
+- `progress` 工作发生新的进展
+- `remove` 工作被移除
 
 ## 已知缺陷
 - 同一个消费者，如果选择处理多种工作，同一个时间内也只能处理一个工作（虽然用户总是可以给不同的工作起不一定数量的消费者）
