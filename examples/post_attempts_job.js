@@ -2,9 +2,9 @@
 const courier = require('../').createCourier({ prefix: 'c:' });
 
 /*
- * 模拟不定期发布工作
+ * 模拟不定期发布可重试工作
  */
-setInterval(() => {
+const postJob = () => setTimeout(() => {
   courier.post('email', {
     title: 'Sample Title',
     from: 'A',
@@ -20,4 +20,7 @@ setInterval(() => {
     console.log(`#${job.id} 工作失败`);
     console.log(`失败信息：${message}`);
   });
+  postJob();
 }, Math.random() * 5000);
+
+postJob();
