@@ -10,7 +10,7 @@ const postJob = () => setTimeout(() => {
     from: 'A',
     to: 'B',
     content: 'Some contents'
-  }).on('-> ready', (job) => {
+  }).on(' -> ready', (job) => {
     console.log(`#${job.id} 工作准备就绪`);
   }).on('ready -> active', (job) => {
     console.log(`#${job.id} 工作开始进行`);

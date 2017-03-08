@@ -10,7 +10,7 @@ setInterval(() => {
     from: 'A',
     to: 'B',
     content: 'Some contents'
-  }, 2).on('-> delayed', (job) => {
+  }, 2).on(' -> delayed', (job) => {
     console.log(`#${job.id} 进入延迟工作队列`);
   }).on('delayed -> ready', (job) => {
     console.log(`#${job.id} 进入就绪队列`);
